@@ -15,10 +15,4 @@ conexao.once("open", () => {
 const app = express();
 routes(app);
 
-
-app.get("/", (req, res) => {
-   res.status(200).send("Curso de node + Express");
-});
-
-
 export default app;
