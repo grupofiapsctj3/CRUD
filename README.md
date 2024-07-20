@@ -1,7 +1,6 @@
 # CRUD API
 
 Esta é uma API simples para gerenciamento de livros, utilizando Node.js, Express e MongoDB. A API permite criar, ler, atualizar e deletar informações sobre livros.
-![stable-diffusion-imagem](https://github.com/user-attachments/assets/ee75e649-3439-4923-9a00-7e0dd2374d57)
 
 ## Requisitos
 
