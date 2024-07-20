@@ -1,12 +1,13 @@
 # CRUD API
 
-Esta é uma API simples para gerenciamento de livros, utilizando Node.js, Express e PostgreSQL. A API permite criar, ler, atualizar e deletar informações sobre livros.
+Esta é uma API simples para gerenciamento de livros, utilizando Node.js, Express e MongoDB. A API permite criar, ler, atualizar e deletar informações sobre livros.
 
 ## Requisitos
 
 - Node.js (versão 14 ou superior)
 - npm (versão 6 ou superior)
-- PostgreSQL (versão 12 ou superior)
+- MongoDB (versão 4 ou superior)
+- Postman (para testar a API)
 
 ## Instalação
 
@@ -27,46 +28,28 @@ Esta é uma API simples para gerenciamento de livros, utilizando Node.js, Expres
     npm install
     ```
 
-3. **Configure o banco de dados PostgreSQL:**
+3. **Configure o MongoDB:**
+
+   - **Inicie o MongoDB:**
+
+     Se você estiver usando Docker, pode iniciar o MongoDB com o seguinte comando:
+
+    ```bash
+    docker run -d -p 27017:27017 --name mongodb mongo
+    ```
 
    - **Crie um banco de dados:**
 
-     Abra o terminal do PostgreSQL (psql) e execute:
+     Não é necessário criar um banco de dados explicitamente. O MongoDB criará automaticamente o banco de dados quando você inserir dados nele.
 
-    ```sql
-    CREATE DATABASE crud_db;
-    ```
-
-   - **Crie a tabela de livros:**
-
-     No terminal do PostgreSQL (psql), conecte-se ao banco de dados e crie a tabela:
-
-    ```bash
-    \c crud_db
-    ```
-
-    ```sql
-    CREATE TABLE books (
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(100),
-      author VARCHAR(100),
-      publisher VARCHAR(100)
-    );
-    ```
-
-4. **Configure a conexão com o banco de dados:**
+4. **Configure a conexão com o MongoDB:**
 
    - Crie um arquivo `.env` na raiz do projeto com as seguintes configurações:
 
     ```env
-    DB_USER=seu_usuario
-    DB_HOST=localhost
-    DB_DATABASE=crud_db
-    DB_PASSWORD=sua_senha
-    DB_PORT=5432
+    MONGO_URI=mongodb://localhost:27017/crud_db
+    PORT=3000
     ```
-
-     Substitua `seu_usuario` e `sua_senha` pelos seus dados de conexão do PostgreSQL.
 
 5. **Inicie o servidor:**
 
