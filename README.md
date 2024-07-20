@@ -13,5 +13,5 @@ Esta é uma API simples para gerenciamento de livros, utilizando Node.js, Expres
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu_usuario/book-management.git
+git clone https://github.com/grupofiapsctj3/CRUD.git
 cd book-management
