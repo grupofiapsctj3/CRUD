@@ -1,80 +1,206 @@
-# CRUD API
+# CRUD Livros API
 
-Esta é uma API simples para gerenciamento de livros, utilizando Node.js, Express e MongoDB. A API permite criar, ler, atualizar e deletar informações sobre livros.
+Este é um projeto de exemplo que implementa um CRUD (Create, Read, Update, Delete) para gerenciamento de livros usando Node.js, Express e MongoDB. A aplicação permite a criação, leitura, atualização e exclusão de informações sobre livros.
 
-## Requisitos
+## Estrutura do Projeto
 
-- Node.js (versão 14 ou superior)
-- npm (versão 6 ou superior)
-- MongoDB (versão 4 ou superior)
-- Postman (para testar a API)
+O projeto possui a seguinte estrutura de diretórios e arquivos:
 
-## Instalação
+```
+/crud-livros
+├── config
+│   └── dbConnect.js
+├── controllers
+│   └── livroController.js
+├── models
+│   └── Livro.js
+├── routes
+│   ├── index.js
+│   └── livroRoutes.js
+├── .env
+├── app.js
+├── package.json
+├── package-lock.json
+├── server.js
+└── README.md
+```
 
-1. **Clone o repositório:**
+## Pré-requisitos
 
-    Abra o terminal e execute os seguintes comandos:
+Antes de começar, certifique-se de ter instalado o seguinte:
 
-    ```bash
-    git clone https://github.com/grupofiapsctj3/CRUD.git
-    cd CRUD
+- [Node.js](https://nodejs.org/en/) (versão 16 ou superior)
+- [npm](https://www.npmjs.com/) (gerenciador de pacotes do Node.js)
+- [MongoDB](https://www.mongodb.com/) (pode ser instalado localmente ou usar o MongoDB Atlas)
+
+## Configuração do Ambiente
+
+1. Clone este repositório para sua máquina local.
+2. Navegue até o diretório do projeto.
+3. Crie um arquivo `.env` na raiz do projeto e adicione a string de conexão com o MongoDB:
+    ```env
+    DB_CONNECTION_STRING=mongodb+srv://<seu-usuario>:<sua-senha>@<seu-cluster>.mongodb.net/?retryWrites=true&w=majority
     ```
-
-2. **Instale as dependências:**
-
-    No diretório do projeto, execute:
-
+4. Instale as dependências do projeto:
     ```bash
     npm install
     ```
 
-3. **Configure o MongoDB:**
+## Executando o Projeto
 
-   - **Inicie o MongoDB:**
-
-     Se você estiver usando Docker, pode iniciar o MongoDB com o seguinte comando:
-
+1. Para iniciar o servidor de desenvolvimento, execute o comando:
     ```bash
-    docker run -d -p 27017:27017 --name mongodb mongo
+    npm run dev
     ```
+2. O servidor estará rodando na porta `3000`. Você pode acessar a API em `http://localhost:3000`.
 
-   - **Crie um banco de dados:**
+## Endpoints da API
 
-     Não é necessário criar um banco de dados explicitamente. O MongoDB criará automaticamente o banco de dados quando você inserir dados nele.
+### Criar um Livro
 
-4. **Configure a conexão com o MongoDB:**
-
-   - Crie um arquivo `.env` na raiz do projeto com as seguintes configurações:
-
-    ```env
-    MONGO_URI=mongodb://localhost:27017/crud_db
-    PORT=3000
-    ```
-
-5. **Inicie o servidor:**
-
-    No diretório do projeto, execute:
-
-    ```bash
-    node index.js
-    ```
-
-    Você verá a mensagem `Server is running on port 3000` no terminal, indicando que o servidor está em execução.
-
-6. **Teste a API:**
-
-    Acesse a API em `http://localhost:3000` com uma ferramenta como Postman ou cURL.
-
-## Endpoints
-
-### Criar um livro
-
-- **URL:** `/books`
+- **URL:** `/livros`
 - **Método:** `POST`
 - **Body:**
-  ```json
-  {
-    "name": "Nome do Livro",
-    "author": "Autor do Livro",
-    "publisher": "Editora do Livro"
-  }
+    ```json
+    {
+        "nome": "Nome do Livro",
+        "autor": "Autor do Livro",
+        "editora": "Editora do Livro"
+    }
+    ```
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "message": "Criado com Sucesso!",
+        "livro": {
+            "nome": "Nome do Livro",
+            "autor": "Autor do Livro",
+            "editora": "Editora do Livro",
+            "_id": "id_gerado_pelo_mongodb"
+        }
+    }
+    ```
+
+### Listar Todos os Livros
+
+- **URL:** `/livros`
+- **Método:** `GET`
+- **Resposta de Sucesso:**
+    ```json
+    [
+        {
+            "_id": "id_do_livro",
+            "nome": "Nome do Livro",
+            "autor": "Autor do Livro",
+            "editora": "Editora do Livro"
+        },
+        ...
+    ]
+    ```
+
+### Obter Livro por ID
+
+- **URL:** `/livros/:id`
+- **Método:** `GET`
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "_id": "id_do_livro",
+        "nome": "Nome do Livro",
+        "autor": "Autor do Livro",
+        "editora": "Editora do Livro"
+    }
+    ```
+
+### Atualizar Livro
+
+- **URL:** `/livros/:id`
+- **Método:** `PUT`
+- **Body:**
+    ```json
+    {
+        "nome": "Novo Nome do Livro",
+        "autor": "Novo Autor do Livro",
+        "editora": "Nova Editora do Livro"
+    }
+    ```
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "message": "Livro Atualizado!"
+    }
+    ```
+
+### Excluir Livro
+
+- **URL:** `/livros/:id`
+- **Método:** `DELETE`
+- **Resposta de Sucesso:**
+    ```json
+    {
+        "message": "Livro excluido!"
+    }
+    ```
+
+## Descrição dos Arquivos
+
+### `dbConnect.js`
+
+Responsável por configurar e conectar ao banco de dados MongoDB.
+
+```javascript
+import mongoose from "mongoose";
+
+async function conectaNaDataBase() {
+    mongoose.connect(process.env.DB_CONNECTION_STRING)
+
+    return mongoose.connection;
+};
+
+export default conectaNaDataBase;
+```
+
+### `livroController.js`
+
+Contém as funções que lidam com as operações CRUD para os livros.
+
+### `Livro.js`
+
+Define o modelo de dados para um livro usando Mongoose.
+
+```javascript
+import mongoose from "mongoose";
+
+const livroSchema = new mongoose.Schema({
+    id: { type: mongoose.Schema.Types.ObjectId},
+    nome: { type: String, required: true },
+    autor: { type: String },
+    editora: { type: String }
+}, { versionKey: false });
+
+const livro = mongoose.model("livros", livroSchema);
+
+export default livro;
+```
+
+### `livrosRoutes.js`
+
+Define as rotas para a API de livros.
+
+### `app.js`
+
+Configura o aplicativo Express e integra as rotas.
+
+### `server.js`
+
+Inicia o servidor na porta definida.
+
+## Dependências
+
+- `express`: Framework web para Node.js.
+- `mongoose`: ODM (Object Data Modeling) para MongoDB e Node.js.
+- `dotenv`: Carrega variáveis de ambiente de um arquivo `.env`.
+
+## Conclusão
+
+Este projeto implementa um CRUD simples para gerenciamento de livros utilizando Node.js, Express e MongoDB.
