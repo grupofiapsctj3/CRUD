@@ -200,7 +200,9 @@ Inicia o servidor na porta definida.
 - `express`: Framework web para Node.js.
 - `mongoose`: ODM (Object Data Modeling) para MongoDB e Node.js.
 - `dotenv`: Carrega variáveis de ambiente de um arquivo `.env`.
+- `mongodb`: Biblioteca para trabalhar com o banco de dados MongoDB.
+- `nodemon`: Ferramenta que reinicia automaticamente o servidor quando há alterações no código durante o desenvolvimento.
 
 ## Conclusão
 
-Este projeto implementa um CRUD simples para gerenciamento de livros utilizando Node.js, Express e MongoDB.
+Este projeto implementa um CRUD simples para gerenciamento de livros utilizando Node.js, Express e MongoDB. 
