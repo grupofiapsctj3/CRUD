@@ -2,7 +2,8 @@ import express from "express";
 import conectaNaDataBase from "./config/dbConnect.js";
 import routes from "./routes/index.js";
 
-// r
+// Conexão com banco de dados e Criação do servidor Express em (app).
+
 const conexao = await conectaNaDataBase();
 
 conexao.on("error", (erro) => {

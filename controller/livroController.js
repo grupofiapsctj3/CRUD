@@ -1,5 +1,8 @@
 import livro from "../models/Livro.js";
 
+// Criação de classe para manipulação das operações CRUD utilizando o modelo livro.
+// Tratamento simples de erros via blocos "try-catch".
+
 class LivroController {
 
     static async listaLivros (req, res) {
